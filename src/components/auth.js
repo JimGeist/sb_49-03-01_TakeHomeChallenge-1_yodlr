@@ -12,7 +12,7 @@ function AuthRegister() {
     email: "",
     firstName: "",
     lastName: "",
-    state: ""
+    state: "pending"
   }
 
   const INITIAL_VALUES_MESSAGES = {
@@ -92,8 +92,8 @@ function AuthRegister() {
         fieldValue={formFields.firstName} fxOnChange={handleChange} />
       <InputText fieldName="lastName" textLabel="Last Name:" textError={fieldMessages.lastName}
         fieldValue={formFields.lastName} fxOnChange={handleChange} />
-      <InputText fieldName="state" textLabel="state:" textError={fieldMessages.state}
-        fieldValue={formFields.state} fxOnChange={handleChange} />
+      {/* <InputText fieldName="state" textLabel="state:" textError={fieldMessages.state}
+        fieldValue={formFields.state} fxOnChange={handleChange} /> */}
       <button type="submit" onClick={handleSubmit}>Add {`${formFields.firstName} ${formFields.lastName}`}</button>
     </form>
   );

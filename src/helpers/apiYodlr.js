@@ -4,15 +4,25 @@ const API_URL = "http://127.0.0.1:5000";
 
 class Yodlr {
 
+    /**
+     * request is a common method to communicate with the backend server. 
+     *  endpoint - string, the significant part of the api route for this request. 
+     *  data - object, for post and put requests, an object with the fields. Typically
+     *   id, email, firstName, lastName, and state. 
+     *  method - string, the RESTful API method (get, put, post, delete). Defaults to 'get' 
+     *   when not provided.
+     *  token - string, for calls that require authorization, the token for validation and 
+     *   authorization access. 
+     * @param {*} data 
+     * @returns on success, an object with data returned from the api.
+     */
     static async request(endpoint, data = {}, method = "get", token = "") {
 
-        //there are multiple ways to pass an authorization token, this is how you pass it in the header.
-        // this has been provided to show you another way to pass the token. you are only expected to read 
-        // this code for this project.
         const url = `${API_URL}/${endpoint}`;
 
-        // Handle the headers by including an Authorization header when a token was passed as an argument.
 
+        // The authorization token gets passed to the api via the 'Authorization' header, {Authorization: token}. 
+        // Handle the headers by including an Authorization header when a token was passed as an argument.
         const headers = (token)
             ? { Authorization: `${token}` }
             : {};
@@ -34,13 +44,45 @@ class Yodlr {
     }
 
 
+
+    /**
+     * apiGetAllUsers gets all Yodlr users from the Yodlr database via a 'get' request.
+     * Method returns a list of objects with id, email, firstName, lastName, and state 
+     *  for all Yodlr users.
+     * @returns a list of objects with id, email, firstName, lastName, and state 
+     *  for all Yodlr users.
+     */
+    static async apiGetAllUsers() {
+
+        // console.log("Yodlr API - apiGetAllUsers");
+
+        try {
+            const result = await this.request("users");
+            // console.log("Yodlr API - apiGetAllUsers: result =", result);
+            return result;
+
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+    /**
+     * apiRegister adds a new user to the Yodlr database via a post request.
+     *  data object must contain a email, firstName, lastName, and state fields. 
+     * Method returns an object which contains id for the new user plus their 
+     *  email, firstName, LastName, and state.
+     * @param {*} data 
+     * @returns an object which contains id for the new user plus their email
+     *  firstName, LastName, and state.
+     */
     static async apiRegister(data) {
 
         // console.log("Yodlr API - apiRegister: data=", data);
 
         try {
             const result = await this.request("users", data, "post");
-            console.log("Yodlr API - apiRegister: result =", result);
+            // console.log("Yodlr API - apiRegister: result =", result);
             return result;
 
         } catch (error) {

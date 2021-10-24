@@ -10,9 +10,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          {/* <Route exact path="/">
-            <Home />
-          </Route> */}
           <Route exact path="/signup">
             <AuthRegister />
           </Route>
@@ -20,7 +17,7 @@ function App() {
             <Admin />
           </Route>
           <Route>
-            <p>...and you still . . . haven't found . . . what you're looking for!</p>
+            <AuthRegister />
           </Route>
         </Switch>
 
